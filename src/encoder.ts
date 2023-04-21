@@ -1,7 +1,13 @@
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("")
 
+const removeSpecialChars = /[^A-Z\s-]/g
+
 const encoder = (text: string, shift: number) => {
-  const target = text.toUpperCase().split("")
+  const target = text
+    .toUpperCase()
+    .normalize("NFD")
+    .replaceAll(removeSpecialChars, "")
+    .split("")
 
   const result = target
     .map((char) => {
